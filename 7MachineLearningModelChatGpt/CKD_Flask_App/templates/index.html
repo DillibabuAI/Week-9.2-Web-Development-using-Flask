@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CKD Prediction | KidneyCare</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0f2fe, #eff6ff, #dbeafe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 16px;
+            color: #1e293b;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: #ffffff;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(30, 64, 175, 0.13);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0f766e, #0891b2);
+            color: white;
+            padding: 35px 30px;
+            text-align: center;
+        }
+
+        .icon {
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+        }
+
+        .header h1 {
+            font-size: 27px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #d9fffa;
+        }
+
+        .form-content {
+            padding: 32px;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .section-description {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #dbe4ee;
+            border-radius: 11px;
+            background: #f8fafc;
+            color: #0f172a;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .form-group input::placeholder {
+            color: #94a3b8;
+        }
+
+        .form-group input:focus {
+            border-color: #0891b2;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.10);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .predict-btn {
+            width: 100%;
+            margin-top: 28px;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #0f766e, #0891b2);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 20px rgba(8, 145, 178, 0.22);
+        }
+
+        .predict-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(8, 145, 178, 0.30);
+        }
+
+        .predict-btn:active {
+            transform: translateY(0);
+        }
+
+        .notice {
+            margin-top: 22px;
+            padding: 13px 15px;
+            border-radius: 10px;
+            background: #f0fdfa;
+            border: 1px solid #ccfbf1;
+            color: #475569;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 18px;
+            background: #f8fafc;
+            border-top: 1px solid #eef2f7;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        @media (max-width: 520px) {
+            .form-content {
+                padding: 24px 20px;
+            }
+
+            .header {
+                padding: 28px 20px;
+            }
+
+            .header h1 {
+                font-size: 23px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+
+        <header class="header">
+            <div class="icon" aria-hidden="true">🩺</div>
+            <h1>KidneyCare</h1>
+            <p>Chronic Kidney Disease Prediction System</p>
+        </header>
+
+        <div class="form-content">
+            <h2 class="section-title">Patient Health Details</h2>
+            <p class="section-description">
+                Enter the patient's laboratory test values
+                to generate a model prediction.
+            </p>
+
+            <form action="/predict" method="post">
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="bgr">Blood Glucose Random</label>
+                        <input
+                            type="number"
+                            id="bgr"
+                            name="bgr"
+                            step="any"
+                            min="0"
+                            placeholder="e.g. 120"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bu">Blood Urea</label>
+                        <input
+                            type="number"
+                            id="bu"
+                            name="bu"
+                            step="any"
+                            min="0"
+                            placeholder="e.g. 35"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sc">Serum Creatinine</label>
+                        <input
+                            type="number"
+                            id="sc"
+                            name="sc"
+                            step="any"
+                            min="0"
+                            placeholder="e.g. 1.2"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pcv">Packed Cell Volume (PCV)</label>
+                        <input
+                            type="number"
+                            id="pcv"
+                            name="pcv"
+                            step="any"
+                            min="0"
+                            placeholder="e.g. 40"
+                            required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="wc">White Blood Cell Count (WC)</label>
+                        <input
+                            type="number"
+                            id="wc"
+                            name="wc"
+                            step="any"
+                            min="0"
+                            placeholder="e.g. 8000"
+                            required>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="predict-btn">
+                    Analyze Patient Data &rarr;
+                </button>
+            </form>
+
+            <div class="notice">
+                <strong>ⓘ Important:</strong>
+                This tool provides a machine-learning prediction
+                for informational or research purposes only.
+                It is not a medical diagnosis. Consult a qualified
+                healthcare professional for clinical interpretation.
+            </div>
+        </div>
+
+        <footer class="footer">
+            KidneyCare &bull; CKD Prediction System
+        </footer>
+
+    </main>
+</body>
+</html>
